@@ -16,13 +16,13 @@ export function Logo({
       className={cn("group inline-flex items-center", className)}
       aria-label="Académicos UPSantarém — página inicial"
     >
-      <span className="relative size-10 shrink-0 overflow-hidden">
+      <span className="relative block h-10 w-44 shrink-0 overflow-hidden sm:w-52">
         <Image
           src={variant === "light" ? "/logo_dark_bg.png" : "/logo_light_bg.png"}
           alt=""
           fill
-          sizes="40px"
-          className="object-contain"
+          sizes="(min-width: 640px) 208px, 176px"
+          className="object-contain object-left"
         />
       </span>
     </Link>
