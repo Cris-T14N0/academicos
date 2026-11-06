@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import {
   BookOpen,
   Bus,
@@ -88,24 +89,26 @@ export function StudentCard() {
                   flipped && "[transform:rotateY(180deg)]",
                 )}
               >
-                <div className="absolute inset-0 overflow-hidden rounded-xl border border-white/15 bg-brand-900 p-5 text-white [backface-visibility:hidden]">
+                <div className="absolute inset-0 overflow-hidden rounded-xl border border-white/15 bg-brand-900 p-3 text-white [backface-visibility:hidden] sm:p-5">
                   <div className="relative flex h-full flex-col justify-between">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="grid size-8 place-items-center rounded-lg bg-white/15 font-display text-xs font-bold">UP</span>
-                        <div>
-                          <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-sand-300">UPSantarém</p>
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex min-w-0 items-center gap-2">
+                        <span className="grid size-7 shrink-0 place-items-center overflow-hidden rounded-lg bg-white p-1 sm:size-8">
+                          <Image src="/logoup.png" alt="Logótipo da UPSantarém" width={32} height={32} className="size-full object-contain" />
+                        </span>
+                        <div className="min-w-0">
+                          <p className="truncate text-[0.52rem] font-bold uppercase tracking-[0.08em] text-sand-300 sm:text-[0.6rem] sm:tracking-[0.12em]">Académicos UPSantarém</p>
                           <p className="text-[0.55rem] text-white/50">Cartão de Estudante</p>
                         </div>
                       </div>
-                      <span className="rounded-md bg-white/10 px-2 py-1 text-[0.55rem] font-semibold uppercase tracking-wide text-white/70">
+                      <span className="shrink-0 rounded-md bg-white/10 px-1.5 py-1 text-[0.48rem] font-semibold uppercase tracking-wide text-white/70 sm:px-2 sm:text-[0.55rem]">
                         Caixa IU
                       </span>
                     </div>
 
                     <div>
                       <p className="text-[0.55rem] font-bold uppercase tracking-[0.16em] text-sand-300">Nome do titular</p>
-                      <p className="font-display text-lg font-semibold">{DEMO_USER.name}</p>
+                      <p className="font-display text-base font-semibold sm:text-lg">{DEMO_USER.name}</p>
                       <div className="mt-2 flex items-end justify-between">
                         <div>
                           <p className="text-[0.5rem] font-bold uppercase tracking-[0.16em] text-white/40">Número de estudante</p>
@@ -120,20 +123,20 @@ export function StudentCard() {
                   </div>
                 </div>
 
-                <div className="absolute inset-0 overflow-hidden rounded-xl border border-white/15 bg-brand-950 p-5 text-white [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                <div className="absolute inset-0 overflow-hidden rounded-xl border border-white/15 bg-brand-950 p-3 text-white [backface-visibility:hidden] [transform:rotateY(180deg)] sm:p-5">
                   <div className="relative flex h-full flex-col justify-between">
-                    <div className="flex items-center justify-between">
-                      <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-sand-300">
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="min-w-0 text-[0.5rem] font-bold uppercase leading-relaxed tracking-[0.1em] text-sand-300 sm:text-[0.6rem] sm:tracking-[0.16em]">
                         {DEMO_USER.course}
                       </p>
-                      <span className="text-[0.55rem] text-white/40">{DEMO_USER.school}</span>
+                      <span className="max-w-[38%] text-right text-[0.48rem] leading-relaxed text-white/50 sm:text-[0.55rem]">{DEMO_USER.school}</span>
                     </div>
                     <div className="flex items-end justify-between gap-3">
-                      <div>
-                        <p className="font-mono text-[0.6rem] tracking-[0.18em] text-white/70">
+                      <div className="min-w-0">
+                        <p className="break-all font-mono text-[0.5rem] tracking-[0.1em] text-white/70 sm:text-[0.6rem] sm:tracking-[0.18em]">
                           {DEMO_USER.studentNumber}-UPS-2026-2029
                         </p>
-                        <div className="mt-2 flex h-8 items-end gap-[2px]">
+                        <div className="mt-1.5 flex h-6 items-end gap-[2px] sm:mt-2 sm:h-8">
                           {Array.from({ length: 42 }).map((_, index) => (
                             <span
                               key={index}
@@ -146,7 +149,7 @@ export function StudentCard() {
                           Documento pessoal e intransmissível · UPSantarém
                         </p>
                       </div>
-                      <div className="grid shrink-0 gap-px rounded bg-white p-1.5" style={{ gridTemplateColumns: "repeat(21, 2px)" }}>
+                      <div className="grid shrink-0 gap-px rounded bg-white p-1 sm:p-1.5" style={{ gridTemplateColumns: "repeat(21, 2px)" }}>
                         {qrCells.map((on, index) => (
                           <span key={index} className={cn("size-[2px]", on ? "bg-brand-950" : "bg-white")} />
                         ))}
