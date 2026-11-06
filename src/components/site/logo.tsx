@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 
@@ -17,8 +18,14 @@ export function Logo({
       className={cn("group inline-flex items-center gap-3", className)}
       aria-label="Académicos UPSantarém — página inicial"
     >
-      <span className="grid size-10 shrink-0 place-items-center rounded-md border border-brand-800 bg-brand-700 text-white">
-        <span className="font-display text-sm font-bold tracking-tight">UP</span>
+      <span className="relative size-10 shrink-0 overflow-hidden rounded-md">
+        <Image
+          src={variant === "light" ? "/logo_dark_bg.png" : "/logo_light_bg.png"}
+          alt=""
+          fill
+          sizes="40px"
+          className="object-contain"
+        />
       </span>
       {!compact ? (
         <span className="flex flex-col leading-none">
