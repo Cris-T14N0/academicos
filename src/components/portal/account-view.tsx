@@ -46,6 +46,7 @@ export function AccountView() {
   const [method, setMethod] = useState<"mbway" | "card" | "reference">("mbway");
   const [paying, setPaying] = useState(false);
   const [paid, setPaid] = useState(false);
+  const [reference, setReference] = useState<string | null>(null);
 
   const filtered = useMemo(
     () => (status === "Todos" ? transactions : transactions.filter((item) => item.status === status)),
@@ -68,10 +69,19 @@ export function AccountView() {
   }
 
   function copyReference() {
+    if (!reference) return;
     navigator.clipboard
-      .writeText("12345 67890 12345 67890 123 456")
+      .writeText(reference)
       .then(() => toast.success("Referência copiada"))
       .catch(() => toast.error("Não foi possível copiar"));
+  }
+
+  function generateReference() {
+    const generated = Array.from({ length: 9 }, () => Math.floor(Math.random() * 10)).join("");
+    setReference(`${generated.slice(0, 3)} ${generated.slice(3, 6)} ${generated.slice(6, 9)}`);
+    toast.success("Referência de demonstração gerada", {
+      description: "Esta referência é fictícia e não permite realizar pagamentos reais.",
+    });
   }
 
   function downloadReceipt(id: string) {
@@ -311,13 +321,25 @@ export function AccountView() {
 
               {method === "reference" ? (
                 <div className="mt-3 rounded-2xl border border-border p-3 text-xs">
-                  <p className="font-semibold">Entidade: 21849 · Referência:</p>
-                  <div className="mt-1 flex items-center justify-between gap-2">
-                    <span className="font-mono tracking-tight">12345 67890 12345 67890 123</span>
-                    <button type="button" onClick={copyReference} aria-label="Copiar referência" className="grid size-7 place-items-center rounded-lg hover:bg-muted">
-                      <Copy className="size-3.5" />
-                    </button>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <p className="font-semibold">Referência Multibanco</p>
+                    {reference ? (
+                      <button type="button" onClick={copyReference} aria-label="Copiar referência" className="grid size-7 place-items-center rounded-lg hover:bg-muted">
+                        <Copy className="size-3.5" />
+                      </button>
+                    ) : null}
                   </div>
+                  {reference ? (
+                    <p className="mt-2 font-mono text-base font-semibold tracking-wider">{reference}</p>
+                  ) : (
+                    <p className="mt-1 text-muted-foreground">Gera uma referência para esta prestação.</p>
+                  )}
+                  <p className="mt-2 rounded-lg bg-sand-50 p-2 leading-relaxed text-sand-900 dark:bg-sand-900/30 dark:text-sand-200">
+                    Demonstração: os dados gerados são fictícios e não aceitam pagamentos reais.
+                  </p>
+                  <Button type="button" size="sm" variant="outline" className="mt-3" onClick={generateReference}>
+                    {reference ? "Gerar nova referência" : "Gerar referência"}
+                  </Button>
                 </div>
               ) : null}
             </div>

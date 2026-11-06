@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { DEMO_USER } from "@/components/providers/auth-provider";
+import { grades } from "@/lib/data/portal";
 import { cn } from "@/lib/utils";
 
 const tabs = [
@@ -220,6 +221,43 @@ export function ProfileTabs() {
                     <p className="font-display mt-1 text-xl font-semibold">{value}</p>
                   </div>
                 ))}
+              </div>
+              <div className="mt-6 overflow-hidden rounded-2xl border border-border">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-3">
+                  <div>
+                    <h3 className="text-sm font-semibold">Unidades curriculares e classificações</h3>
+                    <p className="text-xs text-muted-foreground">Histórico completo disponível neste registo</p>
+                  </div>
+                  <span className="text-xs text-muted-foreground">{grades.length} unidades</span>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[34rem] text-sm">
+                    <thead>
+                      <tr className="border-b border-border bg-muted/40 text-left text-xs font-medium text-muted-foreground">
+                        <th className="px-4 py-2.5">Unidade curricular</th>
+                        <th className="px-3 py-2.5">Ano letivo · semestre</th>
+                        <th className="px-3 py-2.5">ECTS</th>
+                        <th className="px-4 py-2.5 text-right">Nota</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {grades.map((grade) => (
+                        <tr key={grade.id} className="border-b border-border last:border-0">
+                          <td className="px-4 py-3 font-medium">{grade.unit}</td>
+                          <td className="px-3 py-3 text-xs text-muted-foreground">{grade.semester}</td>
+                          <td className="px-3 py-3 text-muted-foreground">{grade.ects}</td>
+                          <td className="px-4 py-3 text-right">
+                            <span className="font-display font-bold">{grade.status === "Em avaliação" ? "—" : grade.grade}</span>
+                            <span className="ml-2 text-[0.65rem] text-muted-foreground">{grade.status}</span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="border-t border-border px-4 py-3 text-xs text-muted-foreground">
+                  As notas das unidades ainda em avaliação serão atualizadas após a publicação das pautas.
+                </p>
               </div>
             </div>
           ) : null}
