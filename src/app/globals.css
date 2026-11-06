@@ -1,26 +1,217 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fbfe;
+  --foreground: #0b1f33;
+  --card: #ffffff;
+  --card-foreground: #0b1f33;
+  --muted: #eef4f9;
+  --muted-foreground: #5b7085;
+  --border: #dbe7f1;
+  --input: #d3e2ee;
+  --ring: #59adff;
+  --primary: #1769b0;
+  --primary-foreground: #ffffff;
+  --secondary: #fbf0d4;
+  --secondary-foreground: #6b4608;
+  --accent: #f2b233;
+  --accent-foreground: #3e2a05;
+  --destructive: #c92626;
+  --destructive-foreground: #ffffff;
+  --success: #1a7f5a;
+  --surface-elevated: #ffffff;
+}
+
+.dark {
+  --background: #071522;
+  --foreground: #eaf4ff;
+  --card: #0c2236;
+  --card-foreground: #eaf4ff;
+  --muted: #102b43;
+  --muted-foreground: #9db6ca;
+  --border: #1b3a54;
+  --input: #214763;
+  --ring: #59adff;
+  --primary: #59adff;
+  --primary-foreground: #04121f;
+  --secondary: #3b2c10;
+  --secondary-foreground: #ffdd95;
+  --accent: #f2b233;
+  --accent-foreground: #241802;
+  --destructive: #f16a6a;
+  --destructive-foreground: #1b0505;
+  --success: #4bd3a1;
+  --surface-elevated: #0f2a42;
+}
+
+@theme {
+  --color-brand-50: #eff8ff;
+  --color-brand-100: #d9edff;
+  --color-brand-200: #bce0ff;
+  --color-brand-300: #8ecbff;
+  --color-brand-400: #59adff;
+  --color-brand-500: #2f8cf5;
+  --color-brand-600: #1769b0;
+  --color-brand-700: #1658a8;
+  --color-brand-800: #174985;
+  --color-brand-900: #183f6e;
+  --color-brand-950: #102a4c;
+
+  --color-sand-50: #fdf8ec;
+  --color-sand-100: #faedc9;
+  --color-sand-200: #f5d98e;
+  --color-sand-300: #eec054;
+  --color-sand-400: #f2b233;
+  --color-sand-500: #d18a18;
+  --color-sand-600: #b56a11;
+  --color-sand-700: #914b13;
+  --color-sand-800: #783c17;
+  --color-sand-900: #663319;
+
+  --color-ember-50: #fdf2f2;
+  --color-ember-100: #fde2e2;
+  --color-ember-200: #fbcaca;
+  --color-ember-300: #f7a3a3;
+  --color-ember-400: #f16a6a;
+  --color-ember-500: #e33b3b;
+  --color-ember-600: #c92626;
+  --color-ember-700: #a81d1d;
+  --color-ember-800: #8b1c1c;
+  --color-ember-900: #741d1d;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.75rem;
+
+  --shadow-soft: 0 18px 50px -24px rgb(10 54 95 / 0.28);
+  --shadow-lift: 0 30px 70px -35px rgb(10 54 95 / 0.42);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-surface-elevated: var(--surface-elevated);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #f2b233;
+  color: #102a4c;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+.container-page {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-page {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-page {
+    padding-inline: 2rem;
+  }
+}
+
+.card-hover {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.card-hover:hover {
+  border-color: var(--ring);
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.prose-institutional p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+}
+
+.prose-institutional h2 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.prose-institutional ul {
+  margin-bottom: 1rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.prose-institutional li {
+  margin-bottom: 0.35rem;
+  line-height: 1.65;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
